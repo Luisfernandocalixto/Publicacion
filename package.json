@@ -1,0 +1,27 @@
+{
+  "name": "dudas",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node --watch api/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "bcryptjs": "2.4.3",
+    "connect-flash": "0.1.1",
+    "dotenv": "16.4.5",
+    "express": "4.19.2",
+    "express-handlebars": "7.1.2",
+    "express-session": "1.17.3",
+    "md5": "2.3.0",
+    "method-override": "3.0.0",
+    "monaco-editor": "0.46.0",
+    "mongoose": "8.1.0",
+    "passport": "0.7.0",
+    "passport-local": "1.0.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

@@ -1,0 +1,28 @@
+<link rel="stylesheet" href="/public/css/home.css" />
+<section class="container">
+  <header style=" width: 100%;">
+    <img src="/public/img/group.svg" alt="" style="width: 100%;" />
+  </header>
+
+  <main >
+    <h3 style="color: #989898; text-align: center; margin-top: 20px;">
+      <i class="fa-solid fa-comment"></i>
+      Publicaciones
+    </h3>
+    {{#each publicationsAll}}
+
+    <div class="publicationsAll"
+      style="background: #282828 !important; margin-top: 20px; margin-bottom: 15px; height:70px; text-align: center; align-content: center; overflow: hidden; text-overflow: ellipsis; text-decoration: none; color: #FFF;">
+
+      <a href="/notes/public/{{this._id}}"
+        style="width: 100%; overflow: hidden; text-overflow: ellipsis; text-decoration: none; color: #FFF;">
+        <div>
+          <p>{{title}}</p>
+        </div>
+      </a>
+    </div>
+    {{else}}
+    <div style="color: aliceblue; text-align: center;">Aún no hay publicaciones</div>
+    {{/each}}
+  </main>
+</section>

@@ -1,0 +1,88 @@
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 35px 1fr 100px;
+
+    grid-template-areas:
+        "header header header"
+        "sidebar content content"
+        "footer content content"
+        "article article article"
+        "blockquote blockquote blockquote"
+    ;
+    grid-template-rows: auto 1fr auto;
+}
+
+@media (width < 500px) {
+    .container {
+        grid-template-areas:
+            "header header header"
+            "sidebar sidebar sidebar"
+            "footer footer footer"
+            "content content content"
+            "blockquote blockquote article"
+        ;
+
+        .parent-main {
+            display: grid;
+            grid-template-columns: repeat(auto-fill,
+                    minmax(100px, 1fr));
+
+            gap: 16px;
+            max-width: 800px;
+            margin: 0 auto;
+
+        }
+
+        .publicationsAll {
+            width: 100% !important;
+        }
+    }
+
+}
+
+.container header {
+    grid-area: header;
+}
+
+.container aside {
+    background: aliceblue;
+    grid-area: sidebar;
+
+}
+
+.container article {
+    grid-area: article;
+
+}
+
+.container blockquote {
+    grid-area: blockquote;
+
+}
+
+.container main {
+    grid-area: content;
+}
+
+.container footer {
+    grid-area: footer;
+}
+
+body {
+    margin: 0;
+}
+
+.publications:hover {
+    box-shadow: 0px 0px 10px #09f;
+}
+
+.pick {
+    filter: drop-shadow(0px 0px 2px #09f);
+    background: transparent;
+    -webkit-filter: drop-shadow(0px 0px 2px #09f);
+}
+
+.publicationsAll:hover {
+    box-shadow: 0px 0px 10px #9e1414;
+}

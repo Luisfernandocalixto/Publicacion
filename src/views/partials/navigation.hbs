@@ -1,0 +1,42 @@
+<link rel="stylesheet" href="/public/css/sidenav.css">
+
+<div class="container-content ">
+  <div id="header" style="background: #002b36 !important; height: 57px; display: flex; color: #989898 ;gap: 20px; align-items: center;  justify-content: end; position: fixed; width: 100%; box-shadow: -1px 1px 5px 0px rgba(0,0,0,0.75);
+-webkit-box-shadow: -1px 1px 5px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: -1px 1px 5px 0px rgba(0,0,0,0.75);
+z-index:1000;">
+    {{#if userAuthenticated}}
+    <a href="/" style="text-decoration: none; color: #989898;">
+      <div id="" style="margin: 2px; cursor: pointer;">Inicio</div>
+    </a>
+    <a href="/notes" style="text-decoration: none; color: #989898;">
+      <div  style="margin: 2px; cursor: pointer;">Publicaciones</div>
+
+    </a>
+    <a href="/users/logout" style="text-decoration: none; color: #989898;">
+      <div id="buttonSessionClose" style="margin: 2px; cursor: pointer;">Cerrar sesión</div>
+
+    </a>
+    {{else}}
+    <a href="/users/signin" style="text-decoration: none; color: #989898;">
+      <div id="buttonSession" style="margin: 2px; cursor: pointer;">Iniciar sesión</div>
+    </a>
+    <a href="/users/signup" style="text-decoration: none; color: #989898;">
+      <div id="buttonAccount" style="margin-right: 8px; cursor: pointer;"> Cuenta</div>
+    </a>
+    {{/if}}
+    <div style="margin-right: 8px; cursor: pointer;" id="button"><button id="buttonSid" type="button"
+        data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasExample" style=" background: transparent !important;
+            color: aliceblue !important;
+            border: none !important;">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </div>
+</div>
+</div>
+
+</section>
+
+
+<script type="module" src="/public/js/navbar.js"></script>

@@ -1,0 +1,78 @@
+#header {
+    color: aliceblue;
+
+    div:hover {
+        color: #fff !important;
+        transition: 0.5s !important;
+        -webkit-transition: 0.5s !important;
+        -moz-transition: 0.5s !important;
+        -ms-transition: 0.5s !important;
+        -o-transition: 0.5s !important;
+    }
+
+    .d-flex.flex-column.g-5:hover {
+        color: #fff !important;
+        transition: 0.5s !important;
+        -webkit-transition: 0.5s !important;
+        -moz-transition: 0.5s !important;
+        -ms-transition: 0.5s !important;
+        -o-transition: 0.5s !important;
+
+    }
+
+    .mt-5 a {
+        text-decoration: none !important;
+    }
+}
+
+#offcanvasRight {
+    background: #002b36 !important;
+    color: #989898 !important;
+    width: 300px !important;
+}
+
+#buttonSid {
+    cursor: pointer;
+    font-size: 28px;
+    background-color: #989898 !important;
+    transition: 0.2s !important;
+    -webkit-transition: 0.2s !important;
+    -moz-transition: 0.2s !important;
+    -ms-transition: 0.2s !important;
+    -o-transition: 0.2s !important;
+
+}
+
+.container-content {
+
+    #button {
+        display: none !important;
+        font-size: 22px !important;
+
+        button {
+            background: transparent !important;
+            color: aliceblue !important;
+            border: none !important;
+
+            &:hover {
+                background: #989898 !important;
+                color: aliceblue !important;
+                border: none !important;
+            }
+        }
+
+    }
+
+}
+
+
+@media (width < 500px) {
+
+    #header div {
+        display: none !important;
+    }
+
+    .container-content div#button {
+        display: flex !important;
+    }
+}

@@ -1,0 +1,155 @@
+<link rel="stylesheet" href="/public/css/allnotes.css" />
+
+<section class="container">
+  <header style="">
+    <div style="margin-top: 60px;">
+      <h3 style="color: #989898;">
+        <i class="fa-solid fa-comment"></i>
+        Nueva publicación  {{userName}}
+      </h3>
+    </div>
+
+    <div style="margin:3px;">
+      <form
+        action="/notes/new-note"
+        method="post"
+        enctype=""
+        style="margin-top: 10px;"
+      >
+
+        <div>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            minlength="10"
+            maxlength="500"
+            style="height: 38px; border-radius: 8px; width: 100%; outline: none;"
+            placeholder="Título"
+            required
+          />
+        </div>
+        <div style="margin-top: 10px;">
+          <textarea
+            type="text"
+            name="description"
+            minlength="10"
+            maxlength="2500"
+            id="description"
+            style="border-radius: 8px; width: 100%; outline: none; resize: none; field-sizing: content; height: auto; padding: 10px;"
+            placeholder="Descripción"
+            required
+          ></textarea>
+        </div>
+
+        <div style="margin-top: 10px;">
+          <button
+            style=" border-radius: 8px; border: none; width: 100%;font-size: 18px; background: #c0392b; color: #fff; padding: 4px;  height: 48px; cursor: pointer;"
+          >
+            <i class="fa fa-upload"></i>
+            Publicar
+          </button>
+        </div>
+
+      </form>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+  </header>
+
+  <aside>
+
+    <img
+      class="pick"
+      src="/public/img/pick.webp"
+      style="width: 100%; aspect-ratio: 640/427; object-fit: contain;"
+      alt=""
+    />
+  </aside>
+
+  <article>
+
+  </article>
+
+  <blockquote>
+
+  </blockquote>
+
+  <main>
+    <section
+      style=" display:flex; flex-direction: column; place-items: center; width: 100%;"
+    >
+      <h3 style="color: #989898;">
+        <i class="fa-solid fa-comment"></i>
+        Publicaciones
+      </h3>
+      {{#each publicationsAll}}
+
+        <a
+          href="/notes/public/{{this._id}}"
+          style="background: #282828 !important; margin-top: 15px; margin-bottom: 15px; height: 70px; text-align: center; align-content: center; overflow: hidden; text-overflow: ellipsis; width: 65%; text-decoration: none; color: #FFF;"
+          class="publicationsAll"
+        >
+          <article>
+            <p>{{title}}</p>
+          </article>
+        </a>
+      {{/each}}
+    </section>
+
+  </main>
+
+  <footer>
+    <h3 style="color: #989898; margin-top: 20px;"><i
+        class="fa-solid fa-comments"
+      ></i>
+      Mis publicaciones</h3>
+
+    <div>
+      <div>
+        {{#if publications}}
+          {{#each publications}}
+            <a
+              href="/notes/edit/{{this._id}}"
+              style="text-decoration: none; color: #FFF;"
+            >
+              <div
+                class="publications"
+                style="background: #282828; margin-top: 15px; margin-bottom: 15px; height: 40px; text-align: center; align-content: center; overflow: hidden; text-overflow: ellipsis; width: 100%;"
+              >
+                <p style="">{{this.title}}</p>
+
+              </div>
+            </a>
+          {{/each}}
+        {{else}}
+        <div style="text-align: center; color: #FFF;">
+          No hay publicaciones
+        </div>
+        <br>
+        <br>
+        <br>
+        {{/if}}
+      </div>
+    </div>
+  </footer>
+
+</section>
+
+<script src="/public/js/sweetalert.js"></script>
+
+{{#if success_msg}}
+  <script>
+    Swal.fire({ title: "Bien hecho!", text: `{{success_msg}}`, icon: "success"
+    });
+  </script>
+{{/if}}
+{{#if error_msg}}
+  <script>
+    Swal.fire({ title: "Ops!", text: `{{error_msg}}`, icon: "error"
+    });
+  </script>
+{{/if}}
+<script type="module" src="/public/js/navbar.js"></script>
