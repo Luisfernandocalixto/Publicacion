@@ -27,8 +27,8 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.json());
 app.use(session({
     secret: 'mysecretapp',
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
 }))
 app.use(flash())
 
