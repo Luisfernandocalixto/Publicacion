@@ -51,7 +51,7 @@ app.use(require('../src/routes/links.js'));
 app.use(require('../src/routes/users.js'));
 app.use(require('../src/routes/notes.js'));
 
-const www = process.env.WWW || './';
+const www = './';
 app.use(express.static(www));
 console.log(`serving ${www}`);
 

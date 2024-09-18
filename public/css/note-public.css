@@ -81,8 +81,8 @@ body {
     align-items: center;
 
     & button {
-        background: url('/public/img/iconos.webp') no-repeat;
-        background-image: url('/public/img/iconos.webp') no-repeat;
+        background: url('./public/img/iconos.webp') no-repeat;
+        background-image: url('./public/img/iconos.webp') no-repeat;
         background-size: 175px;
         height: 32px;
         width: 32px;
