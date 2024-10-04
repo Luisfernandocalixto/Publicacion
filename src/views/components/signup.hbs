@@ -1,65 +1,129 @@
 <div style="display: grid; place-items: center; height: 60vh;">
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <form action="/users/signup" method="post" style="width: 300px; display: grid; justify-content: space-between;">
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <form
+    action="/users/signup"
+    method="post"
+    style="width: 300px; display: grid; justify-content: space-between;"
+  >
     <h2 style="color: aliceblue;">Crear cuenta</h2>
     <div style="gap: 20px; margin-top: 15px;">
       <label for="name" style="color: aliceblue;">Nombre</label>
-      <input type="text" name="name" style="height: 38px; border-radius: 8px; width: 100%; outline: none;" value=""
-        placeholder="Usuario" />
+      <input
+        type="text"
+        name="name"
+        style="height: 38px; border-radius: 8px; width: 100%; outline: none;"
+        value=""
+        placeholder="Usuario"
+      />
     </div>
 
     <div style="gap: 20px; margin-top: 15px;">
       <label for="email" style="color: aliceblue;">Email</label>
-      <input type="email" name="email" style="height: 38px; border-radius: 8px; width: 100%; outline: none;" value=""
-        placeholder="Email" required />
+      <input
+        type="email"
+        name="email"
+        style="height: 38px; border-radius: 8px; width: 100%; outline: none;"
+        value=""
+        placeholder="Email"
+        required
+      />
     </div>
 
     <div style="gap: 20px; margin-top: 15px;">
       <label for="password" style="color: aliceblue;">Contraseña</label>
-      <input type="password" name="password" style="height: 38px; border-radius: 8px; width: 100%; outline: none;"
-        value="" placeholder="Contraseña" />
+      <div
+        style="display: flex; flex-direction: row-reverse; align-items: center;"
+      >
+        <span id="visible" style="position: absolute; cursor: pointer; padding: 4px;  background: #e8f0fe; border-radius: 8px;"><img
+            src="/img/visible.svg"
+            alt="Ver"
+            title="Ver"
+          /></span>
+        <input
+          type="password"
+          name="password"
+          style="height: 38px; border-radius: 8px; width: 100%; outline: none;"
+          placeholder="Contraseña"
+          id="input"
+          autocomplete=""
+        />
+
+      </div>
     </div>
     <div style="gap: 20px; margin-top: 15px;">
-      <label for="confirm_password" style="color: aliceblue;">Confirmar contraseña</label>
-      <input type="password" name="confirm_password"
-        style="height: 38px; border-radius: 8px; width: 100%; outline: none;" value=""
-        placeholder="Confirmar contraseña" />
+      <label for="confirm_password" style="color: aliceblue;">Confirmar
+        contraseña</label>
+      <input
+        type="password"
+        name="confirm_password"
+        style="height: 38px; border-radius: 8px; width: 100%; outline: none;"
+        placeholder="Confirmar contraseña"
+          id="inputConfirm"
+          autocomplete=""
+      />
     </div>
 
     <div style="margin-top: 15px;">
-      <button type="submit" name="button"
-        style=" border-radius: 8px; border: none; width: 100%;font-size: 18px; background: #c0392b; color: #fff; padding: 4px;  height: 48px; cursor: pointer;">Crear
-        cuenta</button>
+      <button
+        type="submit"
+        name="button"
+        style=" border-radius: 8px; border: none; width: 100%;font-size: 18px; background: #c0392b; color: #fff; padding: 4px;  height: 48px; cursor: pointer;"
+      >Crear cuenta</button>
     </div>
   </form>
 
   <div style="color: azure; margin-top: 15px;">
     <div>
       Ya tienes cuenta?
-      <a href="/users/signin" style="text-decoration: none; margin-left: 2px; color: inherit;">Ingresar</a>
+      <a
+        href="/users/signin"
+        style="text-decoration: none; margin-left: 2px; color: inherit;"
+      >Ingresar</a>
     </div>
   </div>
 </div>
 
 
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    let visible = document.getElementById('visible');
+    let input = document.getElementById('input');
+    let inputConfirm = document.getElementById('inputConfirm');
+    visible.onclick = function(){
+      if(input.type ==='password'){
+        input.type='text';
+        inputConfirm.type='text';
+        visible.innerHTML = `<img src="/img/invisible.svg" alt="Ocultar" title="Ocultar" />`;
+      }
+      else{
+        input.type='password';
+        inputConfirm.type='password';
+        visible.innerHTML = `<img src="/img/visible.svg" alt="Ver" title="Ver" />`;
+
+      }
+    }
+    
+   })
+</script>
 <script type="" src="/js/sweetalert.js"></script>
 {{#if error_msg}}
-<script>
-  Swal.fire({ icon: "error", title: "Oops...", text: `{{error_msg}}` });
-</script>
+  <script>
+    Swal.fire({ icon: "error", title: "Oops...", text: `{{error_msg}}` });
+  </script>
 {{/if}}
 {{#if errors}}
-<script>
-  Swal.fire({
-    icon: "error", title: "Oops...", text: `
+  <script>
+    Swal.fire({ icon: "error", title: "Oops...", text: `
     {{#each errors}}
       {{text}}
     {{/each}}
 
     `});
-</script>
+  </script>
 {{/if}}
