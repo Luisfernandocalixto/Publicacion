@@ -65,7 +65,6 @@ router.get('/notes/edit/:id', isAuthenticated, async (req, res) => {
         // possibles errors 
         // 
 
-        req.flash('success_msg', 'Publicación actualizada');
         res.render('components/edit-publication', { publication: publication[0], userAuthenticated });
     } catch (error) {
         console.error('Error', error);
@@ -86,7 +85,6 @@ router.get('/notes/public/:id', isAuthenticated, async (req, res) => {
 
         const comments = await Comment.find({ publication_id: req.params.id }).populate().lean();
 
-        req.flash('success_msg', 'Publicación actualizada');
         res.render('components/note-public', { publication, userAuthenticated, comments, username, userEmail });
     } catch (error) {
         console.error('Error', error);
