@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta property="og:type" content="website">
     <meta property="og:title" content="Mis Publicaciones">
-    {{!-- <meta property="og:url" content=""> --}}
+    <meta property="og:url" content="https://publicacion-kappa.vercel.app/">
     <meta property="og:image" content="/img/pick.webp">
     <meta property="og:description" content="Mirar publicaciones más recientes">  
   <title>General</title>
   <link rel="shortcut icon" href="/img/pick.webp" type="image/x-icon">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="/css/all.min.css">
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" src="/css/sidenav.css">
 
@@ -21,69 +21,75 @@
   {{{body}}}
 
 
+  
   <script src="/js/sweetalert.js"></script>
-  <script>
+  <script >
     let buttonSid = document.getElementById("buttonSid");
-    buttonSid.addEventListener("click", async function () {
-      await Swal.fire({
-        title: 'Menu 👋',
-        html: `
-    <article style="top:0px; position:static;">
-    {{#if userAuthenticated}}
-     <a href="/" style="text-decoration: none; color: #989898;">
-      <div id="" style="margin: 2px; cursor: pointer;">Inicio</div>
-    </a>
-    <br>
-     <a href="/notes" style="text-decoration: none; color: #989898;">
-      <div id="" style="margin: 2px; cursor: pointer;">Publicaciones</div>
-    </a>
-    <br>
-    <a href="/users/logout" style="text-decoration: none; color: #989898;">
-      <div id="buttonSessionClose" style="margin: 2px; cursor: pointer;">Cerrar sesión</div>
-    </a>
+buttonSid.addEventListener("click", async function () {
+  await Swal.fire({
+    title: 'Menu 👋',
+    html: `
+<article class="position-top">
 
-    <br>
-    {{else}}
-    <a href="/users/signin" style="text-decoration: none; color: #989898;">
-      <div id="buttonSession" style="margin: 2px; cursor: pointer;">Iniciar sesión</div>
-    </a>
-    <br>
-    <a href="/users/signup" style="text-decoration: none; color: #989898;">
-      <div id="buttonAccount" style="margin-right: 8px; cursor: pointer;"> Cuenta</div>
-    </a>
-    {{/if}}
-    </article>
-    `
-        ,
-        position: 'top-right',
-        showClass: {
-          popup: `
-      animate__animated
-      animate__fadeInRight
-      animate__faster
-    `,
-        },
-        hideClass: {
-          popup: `
-      animate__animated
-      animate__fadeOutRight
-      animate__faster
-    `,
-        },
-        grow: 'column',
-        width: 300,
-        showConfirmButton: false,
-        showCloseButton: true,
-        background: '#0c5b6d',
-        color: '#fff',
-      })
+{{#if userAuthenticated}}
+ <a href="/" class="link-side">
+  <div id="" class="margin-pointer">Inicio</div>
+</a>
+<br>
+ <a href="/notes" class="link-side">
+  <div id="" class="margin-pointer">Publicaciones</div>
+</a>
+<br>
+ <a href="/users/settings" class="link-side">
+  <div id="" class="margin-pointer">Configuración</div>
+</a>
+<br>
+<a href="/users/logout" class="link-side">
+  <div id="buttonSessionClose" class="margin-pointer">Cerrar sesión</div>
+</a>
 
-    })
+<br>
+{{else}}
+<a href="/users/signin" class="link-side">
+  <div id="buttonSession" class="margin-pointer">Iniciar sesión</div>
+</a>
+<br>
+<a href="/users/signup" class="link-side">
+  <div id="buttonAccount" style="margin-right: 8px; cursor: pointer;"> Cuenta</div>
+</a>
+{{/if}}
+</article>
+`
+    ,
+    position: 'top-right',
+    showClass: {
+      popup: `
+  animate__animated
+  animate__fadeInRight
+  animate__faster
+`,
+    },
+    hideClass: {
+      popup: `
+  animate__animated
+  animate__fadeOutRight
+  animate__faster
+`,
+    },
+    grow: 'column',
+    width: 300,
+    showConfirmButton: false,
+    showCloseButton: true,
+    background: '#0c5b6d',
+    color: '#fff',
+  })
+
+})
+
 
   </script>
-  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-    crossorigin="anonymous"></script>
+  <script src="/js/jquery-3.7.1.js"></script>
+<script type="module" src="/js/navbar.js"></script>
 </body>
 
 </html>
-<script type="module" src="/js/navbar.js"></script>

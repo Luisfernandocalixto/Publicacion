@@ -1,0 +1,89 @@
+<div class="contentSigUp">
+  <h3 class="text-white mt-60">Mi perfil</h3>
+  <h3 class="text-white mt-60 text-center">{{userName}}<br/> {{userEmail}}</h3>
+  <span class="text-gray mt-60">Modifique sus datos personales y contraseña</span>
+ <div class="contentForms">
+
+  <form 
+    action="/users/settingsGeneral"
+    method="POST"
+    class="formUser mt-60"
+
+  >
+    <h2 class="textLabel">Cambiar datos generales</h2>
+    <div class="groupInput">
+      <label for="name" class="textLabel">Nombre</label>
+        <input
+          type="text"
+          name="name"
+          class="formInput"
+          placeholder="Usuario"
+          autocomplete=""
+          required
+        />
+    </div>
+    <div class="groupInput">
+      <label for="email" class="textLabel">Email</label>
+        <input
+          type="email"
+          name="email"
+          class="formInput"
+          placeholder="example@gmail.com"
+          autocomplete=""
+          required
+        />
+    </div>
+
+    <div class="groupInput">
+      <button
+        type="submit"
+        name="button"
+        class="button-primary"
+      >Enviar</button>
+    </div>
+  </form>
+
+  <form
+    action=""
+    method=""
+    class="formInitial"
+
+  >
+    <h2 class="textLabel mt-60">Cambiar contraseña</h2>
+    <div class="groupInput">
+      <label for="password" class="textLabel">Contraseña</label>
+      <div
+        class="contentShowPassword"
+      >
+        <span id="visible"><img
+            src="/img/visible.svg"
+            alt="Ver"
+            title="Ver"
+          /></span>
+        <input
+          type="password"
+          name="password"
+          class="formInput"
+          placeholder="*****"
+          id="input"
+          autocomplete=""
+          required
+        />
+
+      </div>
+    </div>
+
+    <div class="groupInput">
+      <button
+        type="submit"
+        name="button"
+        class="button-primary"
+      >Enviar</button>
+    </div>
+  </form>
+</div>
+ </div>
+
+<script type="" src="/js/sweetalert.js"></script>
+<script type="module" src="/js/reset.js"></script>
+{{> messageSignup}}

@@ -1,28 +1,29 @@
 <link rel="stylesheet" href="/css/home.css" />
 <section class="container">
-  <header style=" width: 100%;">
-    <img src="/img/group.svg" alt="" style="width: 100%;" />
+  <header class="w-100">
+    <img src="/img/group.svg" alt="Usuarios" class="w-100" />
   </header>
 
   <main >
-    <h3 style="color: #989898; text-align: center; margin-top: 20px;">
+    <h3  class="text-gray text-center mt-form">
       <i class="fa-solid fa-comment"></i>
       Publicaciones
     </h3>
     {{#each publicationsAll}}
 
-    <div class="publicationsAll"
-      style="background: #282828 !important; margin-top: 20px; margin-bottom: 15px; height:70px; text-align: center; align-content: center; overflow: hidden; text-overflow: ellipsis; text-decoration: none; color: #FFF;">
+    <div class="publicationsAll publicationsHome"
+     >
 
       <a href="/notes/public/{{this._id}}"
-        style="width: 100%; overflow: hidden; text-overflow: ellipsis; text-decoration: none; color: #FFF;">
+      class="link-publication-home"
+        >
         <div>
           <p>{{title}}</p>
         </div>
       </a>
     </div>
     {{else}}
-    <div style="color: aliceblue; text-align: center;">Aún no hay publicaciones</div>
+    <div  class="text-white text-center">Aún no hay publicaciones</div>
     {{/each}}
   </main>
 </section>

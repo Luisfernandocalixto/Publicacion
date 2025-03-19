@@ -10,10 +10,10 @@ router.get('/', isAuthenticated, async (req, res) => {
         const userAuthenticated = req.user.id;
         res.render('./components/home', { userAuthenticated, publicationsAll });
     } catch (error) {
-        console.error('Error', error);
-
+        res.status(500).json({ error: 'Ocurrió un error' });
     }
 });
+
 
 
 module.exports = router;

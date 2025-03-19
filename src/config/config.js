@@ -1,0 +1,6 @@
+const { DATABASE_URL,EMAIL, NAME, BREVO_API_KEY, URL, JWT_SECRET} = process.env;
+
+module.exports = {
+    DATABASE_URL,
+    EMAIL, NAME, BREVO_API_KEY, URL, JWT_SECRET
+};

@@ -1,0 +1,40 @@
+<div class="contentSigUp">
+  <h3 class="text-white mt-60 text-center">Ingrese su correo electrónico para enviar un enlace para restablecer su contraseña</h3>
+ <div class="contentForms">
+
+  <form 
+    action="/users/forgotCheckEmail"
+    method="POST"
+    class="formUser mt-60"
+
+  >
+    <div class="groupInput">
+      <label for="email" class="textLabel">Email</label>
+        <input
+          type="email"
+          name="email"
+          class="formInput"
+          placeholder="example@gmail.com"
+          autocomplete=""
+          required
+        />
+    </div>
+
+    <div class="groupInput">
+      <button
+        type="submit"
+        name="button"
+        class="button-primary"
+      >Enviar</button>
+    </div>
+  </form>
+
+</div>
+ </div>
+
+
+
+
+<script type="" src="/js/sweetalert.js"></script>
+<script type="module" src="/js/forgotEmail.js"></script>
+{{> messageForgot}}
