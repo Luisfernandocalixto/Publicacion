@@ -1,11 +1,31 @@
 const helpers = {};
 
 helpers.isAuthenticated = (req, res, next) => {
-    if (req.isAuthenticated()) {
-        return next();
+    try {
+        const user = req.session
+        if (user.user) {
+            return next();
+        }
+        return res.redirect('/users/signin');
+    } catch (error) {        
+        return res.redirect('/users/signin');
+        
     }
-    req.flash('error_msg', 'Not Authorized');
-    res.redirect('/users/signin');
 }
+
+helpers.isNotAuthenticated = (req, res, next) => {
+    try {
+        const user = req.session
+        if (!user.user) {
+            return next();
+        }
+        return res.redirect('/notes');
+    } catch (error) {
+        return res.redirect('/users/signin');
+
+    }
+}
+
+
 
 module.exports = helpers;

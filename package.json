@@ -7,20 +7,19 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@sendinblue/client": "3.3.1",
+    "@getbrevo/brevo": "2.2.0",
     "bcryptjs": "2.4.3",
-    "connect-flash": "0.1.1",
+    "cookie-parser": "1.4.7",
     "dotenv": "16.4.5",
     "express": "4.19.2",
     "express-handlebars": "7.1.2",
     "express-session": "1.17.3",
     "jsonwebtoken": "9.0.2",
     "md5": "2.3.0",
-    "method-override": "3.0.0",
-    "monaco-editor": "0.46.0",
     "mongoose": "8.1.0",
     "passport": "0.7.0",
-    "passport-local": "1.0.0"
+    "passport-local": "1.0.0",
+    "zod": "3.24.2"
   },
   "keywords": [],
   "author": "",

@@ -1,10 +1,11 @@
 require('dotenv').config();
 const express = require('express');
 const { engine } = require('express-handlebars');
-const session = require('express-session');
 const path = require('path');
-const flash = require('connect-flash');
-const passport = require('passport');
+const { JWT_SECRET } = require('../src/config/config.js');
+const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
+
 
 
 // server
@@ -12,6 +13,7 @@ const app = express();
 require('../src/database/database.js');
 require('../src/config/passport.js');
 app.disable('x-powered-by');
+app.use(cookieParser());
 
 
 
@@ -26,22 +28,19 @@ app.engine('.hbs', engine({
 
 app.set('view engine', '.hbs');
 
+app.use((req, res, next) => {
+    const token = req.cookies.access_token
+    req.session = { user: null }
+    try {
+        const data = jwt.verify(token, JWT_SECRET)
+        req.session.user = data
+    } catch (error) {
+    }
+    next();
+})
+
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json());
-app.use(session({
-    secret: 'mysecretapp',
-    resave: false,
-    saveUninitialized: false,
-}))
-app.use(flash())
-app.use((req, res, next) => {
-    res.locals.message = req.flash('error');
-    res.locals.success_msg = req.flash('success_msg');
-    res.locals.error_msg = req.flash('error_msg');
-    res.locals.error = req.flash('error');
-
-    next();
-});
 
 app.use((req, res, next) => {
     res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
@@ -51,13 +50,6 @@ app.use((req, res, next) => {
 });
 
 
-
-app.use(passport.initialize())
-app.use(passport.session())
-app.use((req, res, next) => {
-    res.locals.user = req.user || null;
-    next();
-})
 
 
 
@@ -69,7 +61,7 @@ app.use(require('../src/routes/notes.js'));
 app.use(express.static(path.join(__dirname, '../public')));
 
 app.listen(app.get('port'), () => {
-    console.log(`listening on http://localhost:${app.get('port')}`)
+    console.log(`Server listening on http://localhost:${app.get('port')}`)
 })
 
 module.exports = app;

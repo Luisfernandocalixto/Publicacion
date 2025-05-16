@@ -31,12 +31,35 @@
      height: 60vh;
  }
 
- .formSignIn,
- .formSignUp {
-     width: 300px;
+ .formSignIn {
+     background: #F6F5F5;
+     padding: 20px;
+     border-radius: 12px;
+     /* width: 300px; */
+     max-width: 400px;
      display: grid;
      justify-content: space-between;
      height: 300px;
+     -webkit-border-radius: 12px;
+     -moz-border-radius: 12px;
+     -ms-border-radius: 12px;
+     -o-border-radius: 12px;
+ }
+
+
+ .formSignUp {
+     background: #F6F5F5;
+     padding: 20px;
+     border-radius: 12px;
+     max-width: 400px;
+     /* width: 300px; */
+     display: grid;
+     justify-content: space-between;
+     height: auto;
+     -webkit-border-radius: 12px;
+     -moz-border-radius: 12px;
+     -ms-border-radius: 12px;
+     -o-border-radius: 12px;
  }
 
  .groupInput {
@@ -105,7 +128,7 @@
  }
 
  .footer-links {
-     margin-top: 120px;
+     margin-top: 20px;
  }
 
  /* SignIn and SignUp */
@@ -214,7 +237,7 @@
  }
 
  .formEdit {
-    width: 100%;
+     width: 100%;
      max-width: 800px;
      display: flex;
      flex-direction: column;
@@ -413,7 +436,29 @@
  .contentForms {
      display: flex;
      justify-content: center;
-     align-items: flex-start;
+     align-items: center;
      gap: 50px;
      flex-wrap: wrap;
+ }
+
+ .text-black {
+     color: #000;
+ }
+
+ .formInitial {
+     background: #F6F5F5;
+     padding: 20px;
+     border-radius: 12px;
+     max-width: 400px;
+     
+
+ }
+
+ .formUser {
+     background: #F6F5F5;
+     padding: 20px;
+     border-radius: 12px;
+     max-width: 400px;
+     
+
  }
