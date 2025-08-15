@@ -6,13 +6,12 @@
   <header>
     <div class="mt-60">
 
-      <div>
+      <div >
         <a 
-        {{!-- style="border-radius: 8px; border: none; width: 100%;font-size: 18px; background: #fff;  padding: 11px;  text-decoration: none; cursor: pointer; margin-top: 20px; color: #000;" --}}
           class="buttonBack"
           href="/notes">
           <i class="fa-solid fa-angle-left"></i>
-          Regresar
+           &nbsp;Regresar
         </a>
         <br>
         <br>
@@ -27,8 +26,7 @@
   <main class="mt-60">
     <br>
     <br>
-    <br>
-    <div id="editor">
+    <div id="editor" class="mt">
 /* {{publication.title}} */
 
 /* {{publication.description}} */
@@ -66,7 +64,7 @@
   <article style="" class="article-form">
     <br>
     <br>
-    <form action="/notes/{{publication._id}}/comment" method="POST" style="width: 70%;">
+    <form action="/notes/comment/{{publication._id}}"  method="post">
       <div  class="groupInput" hidden>
         <input type="text" class="form-control" name="name" placeholder="Name" value="{{username}}"
         class="formInput" required />
@@ -80,13 +78,13 @@
       
           required></textarea>
       </div>
-      <div class="form-group">
+      <div class="groupInput">
         <button
         type="submit"
-          class="button-primary"
+          class="buttonPrimary w-100"
           id="btn-comment">
           <i class="fa fa-comment"></i>
-          Comentar
+           &nbsp;Comentar
         </button>
       </div>
     </form>
@@ -104,7 +102,16 @@
       class="cardComment"
       >
       <div>
+        <div class="contentDescriptions">
+          <div>
         <img src="http://gravatar.com/avatar/{{this.gravatar}}?d=monsterid&s=45" class="border-50" alt="">
+          </div>
+          <div>
+          <time datetime=""> {{showDateByProfileUser timestamp}}</time>
+
+          </div>
+
+        </div>
         <br>
         <br>
 
@@ -112,12 +119,12 @@
         <br>
         <br>
         <span>{{this.email}}</span>
-        <br>
-      </div>
+        <br><br>
       <div>
 
         {{this.comment}}
 
+      </div>
       </div>
     </div>
     {{/each}}
@@ -175,4 +182,4 @@
   })
 </script>
 
-{{> messageComment}}
+{{> messages}}

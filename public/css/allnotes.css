@@ -1,14 +1,11 @@
 .container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 35px 1fr 100px;
 
     grid-template-areas:
         "header header header"
         "sidebar content content"
-        "footer content content"
-        "article article article"
-        "blockquote blockquote blockquote"
+        "sidebar content content"
     ;
     grid-template-rows: auto 1fr auto;
 }
@@ -18,9 +15,7 @@
         grid-template-areas:
             "header header header"
             "sidebar sidebar sidebar"
-            "footer footer footer"
             "content content content"
-            "blockquote blockquote article"
         ;
 
         .parent-main {
@@ -46,7 +41,7 @@
 }
 
 .container aside {
-    background: aliceblue;
+    margin: 0 8px;
     grid-area: sidebar;
 
 }
@@ -62,6 +57,7 @@
 }
 
 .container main {
+    margin: 0 8px;
     grid-area: content;
 }
 
@@ -74,27 +70,80 @@ body {
 }
 
 .publications {
-    background: #282828;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    height: 40px;
-    text-align: center;
-    align-content: center;
+    display: flex;
+    flex-direction: column;
+    height: 80px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    padding: 10px 15px;
+    background-color: #ffffff;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    position: relative;
     overflow: hidden;
+    align-items: center;
+    gap: 15px;
     text-overflow: ellipsis;
-    width: 100%
+    max-width: 500px;
+    color: #000;
+    word-wrap: break-word;
+    text-align: justify;
+
+    .contentDate {
+        font-size: 12px;
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        gap: 8px;
+    }
+
+}
+
+.wave {
+    position: absolute;
+    transform: rotate(90deg);
+    left: -31px;
+    top: 32px;
+    width: 80px;
+    fill: #00d47e;
 }
 
 .publications:hover {
     box-shadow: 0px 0px 10px #09f;
 }
 
-.pick {
-    filter: drop-shadow(0px 0px 2px #09f);
-    background: transparent;
-    -webkit-filter: drop-shadow(0px 0px 2px #09f);
+
+.contentAside {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    .pick {
+        border-radius: 100%;
+        background: #fff;
+        aspect-ratio: 1/1;
+        width: 100%;
+        height: 100%;
+        -webkit-border-radius: 100%;
+        -moz-border-radius: 100%;
+        -ms-border-radius: 100%;
+        -o-border-radius: 100%;
+    }
 }
 
 .publicationsAll:hover {
     box-shadow: 0px 0px 10px #9e1414;
+}
+
+
+.form-publication {
+    & textarea {
+        resize: none;
+        height: 80px;
+    }
+}
+
+.m-auto {
+    margin: 8px auto !important;
 }

@@ -1,17 +1,16 @@
 -- Active: 1721414025863@@127.0.0.1@27017@notes
 
-<link rel="stylesheet" href="/css/signup.css" />
 
 <div  class="mt-60">
   <div>
     <h3 class="text-gray">
-      <i class="fa-solid fa-comment"></i>
+      <i class="fa-solid fa-newspaper"></i>
       Editar publicación
     </h3>
   </div>
   <br />
   <div>
-    <form action="/notes/delete/{{publication._id}}" method="post" id="formDeletePub" data-sett="{{publication._id}}"
+    <form  method="post" id="formDeletePub" data-sett="{{publication._id}}"
     class="formOptions"
       >
       <div style="" class="mb-5">
@@ -20,22 +19,26 @@
           class="buttonBack"
           >
           <i class="fa-solid fa-angle-left"></i>
-          Regresar
+          &nbsp;Regresar
         </a>
       </div>
       <div class="mb-5">
 
         <button
-          class="buttonDelete"
+          class="buttonBack"
           id="deletePub" type="submit">
           <i class="fa-solid fa-trash"></i>
-          Eliminar
+          &nbsp;Eliminar
         </button>
       </div>
     </form>
     <div class="contenFormEdit">
 
-    <form action="/notes/edit-note/{{publication._id}}" method="post" class="formEdit">
+    <form  class="formEdit">
+      <div class="form-group p-2" hidden>
+        <input type="text" id="publication" name="isPublication" class="inputEdit"
+          placeholder="publication" value="{{publication._id}}" required readonly />
+      </div>
       <div class="form-group p-2">
         <input type="text" id="title" name="title" minlength="10" maxlength="500" class="inputEdit"
           placeholder="Título" value="{{publication.title}}" required />
@@ -47,10 +50,10 @@
       </div>
       <br>
       <button
-        class="button-primary"
+        class="buttonPrimary"
         type="submit">
-        <i class="fa fa-upload"></i>
-        Enviar
+        <i class="fa fa-paper-plane"></i>
+        &nbsp; Enviar
       </button>
 
       <div class="form-group p-2">
@@ -64,4 +67,4 @@
 <script type="" src="/js/editpublication.js"></script>
 
 
-{{> messageEditPublication}}
+{{> messages}}

@@ -268,3 +268,49 @@ but I didn't like the transition :| */
 .copy:hover svg {
     color: var(--button-hover-text-color);
 }
+
+form {
+    width: 700px;
+}
+
+.publications {
+    height: 80px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    padding: 10px 15px;
+    background-color: #ffffff;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 15px;
+    text-overflow: ellipsis;
+    max-width: 500px;
+    color: #000;
+    word-wrap: break-word;
+
+}
+
+.wave {
+    position: absolute;
+    transform: rotate(90deg);
+    left: -31px;
+    top: 32px;
+    width: 80px;
+    fill: #00d47e;
+}
+
+.publications:hover {
+    box-shadow: 0px 0px 10px #09f;
+}
+
+
+.contentDescriptions {
+        font-size: 12px;
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        gap: 8px;
+    }

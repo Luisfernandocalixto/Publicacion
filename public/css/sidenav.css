@@ -1,5 +1,9 @@
 #header {
-    color: aliceblue;
+    background: #102810;
+    a {
+        color: #fff;
+
+    }
 
     div:hover {
         color: #fff !important;
@@ -26,7 +30,7 @@
 }
 
 #offcanvasRight {
-    background: #002b36 !important;
+    background: #102810;
     color: #989898 !important;
     width: 300px !important;
 }
@@ -44,13 +48,11 @@
 }
 
 .container-content {
-
     #button {
         display: none !important;
         font-size: 22px !important;
 
         button {
-            background: transparent !important;
             color: aliceblue !important;
             border: none !important;
 
@@ -74,5 +76,7 @@
 
     .container-content div#button {
         display: flex !important;
+        justify-content: end;
     }
+
 }

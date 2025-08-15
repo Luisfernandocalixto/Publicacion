@@ -1,6 +1,6 @@
 import { showPasswords, checkForm_Account } from '/js/app.js';
 document.addEventListener('DOMContentLoaded', function () {
-
+    // select elements of DOM =>  id="visible"1
     let visible = document.getElementById('visible');
     let input = document.getElementById('input');
     let inputConfirm = document.getElementById('inputConfirm');

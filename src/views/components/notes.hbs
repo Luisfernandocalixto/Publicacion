@@ -11,10 +11,10 @@
 
     <div  class="m">
       <form
-        action="/notes/new-note"
+        action="/notes"
         method="post"
         enctype=""
-      class="mt-form"
+      class="mt-form form-publication"
       >
 
         <div>
@@ -45,10 +45,10 @@
         <div class="mt-form">
           <button
           type="submit"
-          class="button-primary"
+          class="buttonPrimary w-100"
           >
-            <i class="fa fa-upload"></i>
-            Publicar
+            <i class="fa fa-paper-plane"></i>
+           &nbsp; Publicar
           </button>
         </div>
 
@@ -61,47 +61,15 @@
   </header>
 
   <aside>
+    <div class="contentAside"> 
 
     <img
       class="pick"
       src="/img/pick.webp"
       alt=""
     />
-  </aside>
-
-  <article>
-
-  </article>
-
-  <blockquote>
-
-  </blockquote>
-
-  <main>
-    <section
-      class="contentPublications"
-    >
-      <h3 class="text-gray">
-        <i class="fa-solid fa-comment"></i>
-        Publicaciones
-      </h3>
-      {{#each publicationsAll}}
-
-        <a
-          href="/notes/public/{{this._id}}"
-          class="publicationsAll link-publication"
-        >
-          <article>
-            <p>{{title}}</p>
-          </article>
-        </a>
-      {{/each}}
-    </section>
-
-  </main>
-
-  <footer>
-    <h3 class="text-gray mt-form"><i
+    </div>
+        <h3 class="text-gray mt-form"><i
         class="fa-solid fa-comments"
       ></i>
       Mis publicaciones</h3>
@@ -111,14 +79,21 @@
         {{#if publications}}
           {{#each publications}}
             <a
-              href="/notes/edit/{{this._id}}"
+              href="/notes/{{this._id}}"
               class="decoration-none text-white"
             >
               <div
                 class="publications"
               >
-                <p style="">{{this.title}}</p>
+              {{>wave}}
 
+              <div class="contentDate">
+                  <span>
+                {{showDateByProfileUser date}}
+                  </span>
+              </div>
+
+                <p style="">{{this.title}}</p>
               </div>
             </a>
           {{/each}}
@@ -131,14 +106,59 @@
         <br>
         {{/if}}
       </div>
-    </div>
+          </div>
+
+
+  </aside>
+
+  <article>
+
+  </article>
+
+  <blockquote>
+
+  </blockquote>
+
+  <main    class="m-auto">
+    <section
+      class="m"
+    >
+      <h3 class="text-gray">
+        <i class="fa-solid fa-comment"></i>
+        Publicaciones
+      </h3>
+      {{#each publicationsAll}}
+
+        <a
+          href="/notes/comment/{{this._id}}"
+          class="decoration-none text-white"
+        >
+          <article class="publications">
+            {{>wave}}
+              <div class="contentDate">
+                  <span>
+                {{showDateByProfileUser date}}
+                  </span>
+                  <span>
+                   likes {{likes}}
+                  </span>
+              </div>
+            <p>{{title}}</p>
+          </article>
+        </a>
+      {{/each}}
+    </section>
+
+  </main>
+
+  <footer>
   </footer>
 
 </section>
 
 <script src="/js/sweetalert.js"></script>
 
-{{> messageAllnotes}}
+{{> messages}}
 
 <script type="module" src="/js/navbar.js"></script>
 <script type="module" src="/js/allnotes.js"></script>

@@ -5,7 +5,7 @@
   <form 
     action="/users/forgotCheckEmail"
     method="POST"
-    class="formUser mt-60"
+    class="formUser mt-60 formByForgotEmail"
 
   >
     <div class="groupInput">
@@ -24,7 +24,7 @@
       <button
         type="submit"
         name="button"
-        class="button-primary"
+        class="buttonPrimary w-100"
       >Enviar</button>
     </div>
   </form>
@@ -37,4 +37,4 @@
 
 <script type="" src="/js/sweetalert.js"></script>
 <script type="module" src="/js/forgotEmail.js"></script>
-{{> messageForgot}}
+{{> messages}}

@@ -6,7 +6,7 @@
  }
 
  body {
-     background: #002b36;
+     background: #024751;
      font-family: 'Roboto', sans-serif
  }
 
@@ -35,7 +35,6 @@
      background: #F6F5F5;
      padding: 20px;
      border-radius: 12px;
-     /* width: 300px; */
      max-width: 400px;
      display: grid;
      justify-content: space-between;
@@ -52,7 +51,6 @@
      padding: 20px;
      border-radius: 12px;
      max-width: 400px;
-     /* width: 300px; */
      display: grid;
      justify-content: space-between;
      height: auto;
@@ -141,6 +139,10 @@
      margin-top: 60px;
  }
 
+ .mb {
+     margin-bottom: 60px;
+ }
+
  .text-gray {
      color: #989898;
 
@@ -163,11 +165,8 @@
 
  /* publications */
  .contentPublications {
-     display: flex;
-     flex-direction: column;
-     place-items: center;
-     width: 100%;
-
+     display: grid;
+     justify-content: center;
  }
 
  .link-publication {
@@ -248,18 +247,7 @@
      margin-bottom: 5px;
  }
 
- .buttonBack {
-     border-radius: 8px;
-     border: none;
-     width: 100%;
-     font-size: 18px;
-     background: #fff;
-     padding: 11px;
-     text-decoration: none;
-     cursor: pointer;
-     margin-top: 20px;
-     color: #000;
- }
+
 
  .buttonDelete {
      border-radius: 8px;
@@ -338,16 +326,20 @@
  }
 
  .cardComment {
+     border-radius: 8px;
      padding: 10px;
      margin: 5px;
-     background: #2f3129;
-     color: #fff;
+     background: #fff;
      gap: 20px;
      height: auto;
      display: flex;
      flex-direction: column;
      overflow: hidden;
      text-overflow: ellipsis;
+     -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+     -ms-border-radius: 8px;
+     -o-border-radius: 8px;
  }
 
  .border-50 {
@@ -358,7 +350,7 @@
 
  /* menu */
  .contentLinks {
-     background: #002b36 !important;
+     background: #024751 !important;
      height: 57px;
      display: flex;
      color: #989898;
@@ -423,7 +415,7 @@
 
  .link-side {
      text-decoration: none;
-     color: #989898;
+     color: #fff;
  }
 
  .margin-pointer {
@@ -450,7 +442,7 @@
      padding: 20px;
      border-radius: 12px;
      max-width: 400px;
-     
+
 
  }
 
@@ -459,6 +451,97 @@
      padding: 20px;
      border-radius: 12px;
      max-width: 400px;
-     
 
+     label {
+         color: #000;
+     }
+
+
+ }
+
+
+ /* CSS */
+ .buttonPrimary {
+     align-items: center;
+     background-clip: padding-box;
+     background-color: #fa6400;
+     border: 1px solid transparent;
+     border-radius: .25rem;
+     box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+     box-sizing: border-box;
+     color: #fff;
+     cursor: pointer;
+     display: inline-flex;
+     font-family: system-ui, -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+     font-size: 16px;
+     font-weight: 600;
+     justify-content: center;
+     line-height: 1.25;
+     margin: 0;
+     min-height: 3rem;
+     padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+     position: relative;
+     text-decoration: none;
+     transition: all 250ms;
+     user-select: none;
+     -webkit-user-select: none;
+     touch-action: manipulation;
+     vertical-align: baseline;
+     -webkit-border-radius: .25rem;
+     -moz-border-radius: .25rem;
+     -ms-border-radius: .25rem;
+     -o-border-radius: .25rem;
+ }
+
+ .buttonBack {
+     align-items: center;
+     background-clip: padding-box;
+     background-color: #edfff8;
+     border: 1px solid transparent;
+     border-radius: .25rem;
+     box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+     box-sizing: border-box;
+     color: #000;
+     cursor: pointer;
+     display: inline-flex;
+     font-family: system-ui, -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+     font-size: 16px;
+     font-weight: 600;
+     justify-content: center;
+     line-height: 1.25;
+     margin: 0;
+     min-height: 3rem;
+     padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+     position: relative;
+     text-decoration: none;
+     transition: all 250ms;
+     user-select: none;
+     -webkit-user-select: none;
+     touch-action: manipulation;
+     vertical-align: baseline;
+ }
+
+ .buttonPrimary:hover,
+ .buttonPrimary:focus {
+     background-color: #fb8332;
+     box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+ }
+
+ .buttonPrimary:hover {
+     transform: translateY(-1px);
+     -webkit-transform: translateY(-1px);
+     -moz-transform: translateY(-1px);
+     -ms-transform: translateY(-1px);
+     -o-transform: translateY(-1px);
+ }
+
+ .buttonPrimary:active {
+     background-color: #291100;
+     box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
+     transform: translateY(0);
+ }
+
+ .static-top {
+     top: 0px;
+     position: static;
  }

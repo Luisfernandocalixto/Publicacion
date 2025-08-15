@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function (params) {
             fontSize: 18,
             lineNumbers: 'off',
             tabSize: 2,
-            minimap: false,
             wordWrap: 'on',
             minimap: {
                 enabled: false

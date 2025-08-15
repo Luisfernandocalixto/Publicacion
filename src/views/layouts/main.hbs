@@ -19,78 +19,15 @@
 
 <body>
   {{>navigation}}
+  <br>
   {{{body}}}
 
 
   
   <script src="/js/sweetalert.js"></script>
-  <script >
-    let buttonSid = document.getElementById("buttonSid");
-buttonSid.addEventListener("click", async function () {
-  await Swal.fire({
-    title: 'Menu 👋',
-    html: `
-<article class="position-top">
-
-{{#if userAuthenticated}}
- <a href="/" class="link-side">
-  <div id="" class="margin-pointer">Inicio</div>
-</a>
-<br>
- <a href="/notes" class="link-side">
-  <div id="" class="margin-pointer">Publicaciones</div>
-</a>
-<br>
- <a href="/users/settings" class="link-side">
-  <div id="" class="margin-pointer">Configuración</div>
-</a>
-<br>
-<a href="/users/logout" class="link-side">
-  <div id="buttonSessionClose" class="margin-pointer">Cerrar sesión</div>
-</a>
-
-<br>
-{{else}}
-<a href="/users/signin" class="link-side">
-  <div id="buttonSession" class="margin-pointer">Iniciar sesión</div>
-</a>
-<br>
-<a href="/users/signup" class="link-side">
-  <div id="buttonAccount" style="margin-right: 8px; cursor: pointer;"> Cuenta</div>
-</a>
-{{/if}}
-</article>
-`
-    ,
-    position: 'top-right',
-    showClass: {
-      popup: `
-  animate__animated
-  animate__fadeInRight
-  animate__faster
-`,
-    },
-    hideClass: {
-      popup: `
-  animate__animated
-  animate__fadeOutRight
-  animate__faster
-`,
-    },
-    grow: 'column',
-    width: 300,
-    showConfirmButton: false,
-    showCloseButton: true,
-    background: '#0c5b6d',
-    color: '#fff',
-  })
-
-})
-
-
-  </script>
   <script src="/js/jquery-3.7.1.js"></script>
 <script type="module" src="/js/navbar.js"></script>
+ {{>contentSidemenu}}
 </body>
 
-</html>
+</html> 

@@ -2,33 +2,14 @@ const z = require("zod");
 const User = require("../models/User");
 
 const user = z.object({
-    name: z.string({ message: 'name  invalid!' }).trim({}).min(1, { message: 'name empty!' }),
+    name: z.string({ message: 'name  invalid!' }).trim().min(1, { message: 'name empty!' }),
     email: z.string('email invalid!').trim().min(1, { message: 'email empty!' }).email({ message: 'email invalid!' }),
-    password: z.string({ message: 'password  invalid!' }).trim({}).min(1, { message: 'password empty!' }),
+    password: z.string({ message: 'password  invalid!' }).trim().min(1, { message: 'password empty!' }),
+    token: z.string({ message: 'token is  invalid!' }).trim().min(1, { message: 'token is empty!' }),
 
 });
 
-function validateUserSignIn(input) {
-    return user.partial().safeParse(input);
-}
-
-function validateUserSignup(input) {
-    return user.partial().safeParse(input);
-}
-
-function validateUserUpdate(input) {
-    return user.partial().safeParse(input);
-}
-
-function validateUserUpdatePassword(input) {
-    return user.partial().safeParse(input);
-}
-
-function validateCheckEmail(input) {
-    return user.partial().safeParse(input);
-}
-
-function validatePassword(input) {
+function validateDataOfUser(input) {
     return user.partial().safeParse(input);
 }
 
@@ -38,7 +19,7 @@ function validatePassword(input) {
 class UserRepository {
 
     static async login({ email, password }) {
-        const verify = validateUserSignIn({ email, password });
+        const verify = validateDataOfUser({ email, password });
         if (!verify.success) {
             const message = JSON.parse(verify.error);
             const errors = message.map(err => err.message);
@@ -69,11 +50,6 @@ class UserRepository {
 
 
 module.exports = {
-    validateUserSignIn,
-    validateUserSignup,
-    validateUserUpdate,
-    validateUserUpdatePassword,
-    validateCheckEmail,
-    validatePassword,
-    UserRepository
+    UserRepository,
+    validateDataOfUser
 };

@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config(); // config by read variables .env
 const express = require('express');
 const { engine } = require('express-handlebars');
 const path = require('path');
@@ -24,10 +24,11 @@ app.engine('.hbs', engine({
     layoutsDir: path.join(app.get('views'), 'layouts'),
     partialsDir: path.join(app.get('views'), 'partials'),
     extname: '.hbs',
+    helpers : require('../src/helpers/helpers.js')
 }));
 
 app.set('view engine', '.hbs');
-
+// verify user and session 
 app.use((req, res, next) => {
     const token = req.cookies.access_token
     req.session = { user: null }
@@ -53,13 +54,13 @@ app.use((req, res, next) => {
 
 
 
-
+// routes
 app.use(require('../src/routes/links.js'));
 app.use(require('../src/routes/users.js'));
 app.use(require('../src/routes/notes.js'));
-
+// static files
 app.use(express.static(path.join(__dirname, '../public')));
-
+// listening port server
 app.listen(app.get('port'), () => {
     console.log(`Server listening on http://localhost:${app.get('port')}`)
 })

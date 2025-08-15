@@ -1,6 +1,6 @@
-import { showPassword, checkForm } from '/js/app.js';
+import { showPassword, checkForm , renameMessage} from '/js/app.js';
 document.addEventListener('DOMContentLoaded', function () {
-
+  // variables select elements of DOM => id="setVisible"
   let setVisible = document.getElementById('setVisible');
   let inputAccount = document.getElementById('inputAccount');
 
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         }
         else {
-          Swal.fire({ icon: "error", title: "Oops...", text: `${data}` });
+          Swal.fire({ icon: "error", title: "Oops...", text: `${renameMessage(data)}`, confirmButtonColor: "#024751" });
         }
 
       })
@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   })
+
 
 
 })

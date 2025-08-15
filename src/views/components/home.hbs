@@ -1,23 +1,29 @@
 <link rel="stylesheet" href="/css/home.css" />
 <section class="container">
   <header class="w-100">
-    <img src="/img/group.svg" alt="Usuarios" class="w-100" />
+    <div class="w-100 contentImageGroup">
+
+    <img src="/img/group.svg"   alt="Usuarios" class="imageGroup" />
+    </div>
   </header>
 
-  <main >
+  <main  class="m">
     <h3  class="text-gray text-center mt-form">
       <i class="fa-solid fa-comment"></i>
       Publicaciones
     </h3>
+    <div class="flex-center w-100">
+
     {{#each publicationsAll}}
 
-    <div class="publicationsAll publicationsHome"
+    <div class=""
      >
 
-      <a href="/notes/public/{{this._id}}"
+      <a href="/notes/comment/{{this._id}}"
       class="link-publication-home"
         >
-        <div>
+        <div class="publications w-100">
+          {{>wave}}
           <p>{{title}}</p>
         </div>
       </a>
@@ -25,5 +31,6 @@
     {{else}}
     <div  class="text-white text-center">Aún no hay publicaciones</div>
     {{/each}}
+    </div>
   </main>
 </section>

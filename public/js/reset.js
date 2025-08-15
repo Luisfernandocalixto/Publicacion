@@ -1,6 +1,6 @@
 import { showPassword, checkInput, contentForm , checkForm} from '/js/app.js';
 document.addEventListener('DOMContentLoaded', function () {
-
+    // select elements of DOM =>  id="visible"
     let visible = document.getElementById('visible');
     let input = document.getElementById('input');
     visible.onclick = function () {
@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function () {
     })
 
     const formGeneral = document.querySelector('.formUser');
-    console.log(formGeneral);
     
     const buttonSubmit = formGeneral.querySelector('button[type="submit"]');
     const inputName = formGeneral.querySelector('input[name="name"]');
@@ -26,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
     buttonSubmit.disabled = true;
     formGeneral.addEventListener('change', function (e) {
         e.preventDefault();
-        checkForm(inputName, inputEmail, buttonSubmit)
+        checkForm( inputEmail, inputName, buttonSubmit)
     })
 
     const showTemplate = document.querySelector('.showTemplate');
@@ -38,11 +37,16 @@ document.addEventListener('DOMContentLoaded', function () {
             icon: "warning",
             html: `${contentForm(inputPassword.value.trim())}`,
             showConfirmButton:false,
-            showCancelButton: true,
-
+            
         });
-
-    });
+        
+        const buttonClose =  document.querySelector('#closeButton');
+         buttonClose?.addEventListener('click', async function (e) {         
+          Swal.close()
+         
+        });
+        
+    })
 
   
 })

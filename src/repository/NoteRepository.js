@@ -1,10 +1,11 @@
 const z = require("zod");
-const Publication = require("../models/publication.js");
 
 const note = z.object({
+    id: z.string('id is invalid!').trim().min(1, { message: 'id is empty!' }),
     title: z.string('title invalid!').trim().min(1, { message: 'title empty!' }),
     description: z.string({ message: 'description  invalid!' }).trim({}).min(1, { message: 'description empty!' }),
-
+    user_id: z.string('identifier of user is invalid!').trim().min(1, { message: 'identifier of user is empty!' }),
+    
 });
 
 const commentInNote = z.object({
@@ -14,12 +15,9 @@ const commentInNote = z.object({
 
 });
 
-function validateUpdateNote(input) {
-    return note.safeParse(input);
-}
 
-function validateNote(input) {
-    return note.safeParse(input);
+function validateDataByNote(input) {
+    return note.partial().safeParse(input);
 }
 
 function validateComment(input) {
@@ -27,7 +25,6 @@ function validateComment(input) {
 }
 
 module.exports = {
-    validateUpdateNote,
-    validateNote,
-    validateComment
+    validateComment,
+    validateDataByNote
 };

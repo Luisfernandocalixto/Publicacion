@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-
+    // styles for navbar
     window.addEventListener("scroll", function () {
         let header = document.querySelector('#header');
         var scroll = window.scrollY;

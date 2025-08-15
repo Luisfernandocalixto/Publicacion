@@ -1,6 +1,7 @@
-import { checkForm } from "/js/app.js";
+import { checkFormByComment } from "/js/app.js";
 
 document.addEventListener('DOMContentLoaded', function () {
+    //select elements of DOM => <form>
     const form = document.querySelector('form');
     const button = form.querySelector('button[type="submit"]');
     button.disabled = true;
@@ -9,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     form.addEventListener('change', function (e) {
         e.preventDefault();
-        checkForm(inputTitle, inputDescription, button);
+        checkFormByComment(inputTitle, inputDescription, button);
     })
 
 

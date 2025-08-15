@@ -1,7 +1,7 @@
 const md5 = require("md5");
 const Comment = require("../models/comment");
 const Publication = require("../models/publication");
-const { validateUpdateNote, validateNote, validateComment } = require("../repository/NoteRepository");
+const { validateComment, validateDataByNote } = require("../repository/NoteRepository");
 let success_msg = '';
 let error_msg = '';
 
@@ -12,17 +12,26 @@ class NoteController {
             const currentSession = req.session;
             const { id, name } = currentSession.user;
 
-            const userAuthenticated = id;
-            const userName = name;
+            const myPublications = await Publication.find(
+                { user_id: id }, { description:0 ,likes:0, user_id:0, __v:0 }).sort({ date: 'desc' }).lean();
+            
+            const publicationsAll = await Publication.find({},
+                { description:0 , user_id:0, __v:0 }).sort({ date: 'desc' }).lean().exec();
 
-            const publications = await Publication.find({ user: id }).sort({ date: 'desc' }).lean();
-            const publicationsAll = await Publication.find().sort({ date: 'desc' }).lean();
-
+            
+                
             const { success_msg, error_msg } = req.query
 
-            res.render('components/allnotes', { publications: publications, userAuthenticated, publicationsAll, userName, success_msg: success_msg, error_msg: error_msg });
+           return res.render('components/notes', { 
+            publications: myPublications, 
+            userAuthenticated: id, 
+            publicationsAll, 
+            userName: name, 
+            success_msg: success_msg,
+            error_msg: error_msg });
         } catch (error) {
-            res.status(500).json({ message: 'error' });
+            
+            res.status(500).json({ message: 'error show notes' });
         }
 
     }
@@ -33,20 +42,20 @@ class NoteController {
             const { id } = currentSession.user;
             const { title, description } = req.body;
 
-            const verify = validateNote({ title, description });
+            const verify = validateDataByNote({ title, description });
             if (!verify.success) {
                 const message = JSON.parse(verify.error);
                 const errors = message.map(err => err.message);
                 return res.redirect(`/notes/?success_msg=${success_msg}&error_msg=${errors}`)
             }
+                const newPublication = new Publication({ title, description });
+                newPublication.user_id = id;
+                await newPublication.save();
+                success_msg = 'publication created';
+                return res.redirect(`/notes/?success_msg=${success_msg}&error_msg=${error_msg}`)
 
-            const newPublication = new Publication({ title, description });
-            newPublication.user = id;
-            await newPublication.save();
-            success_msg = 'publication created';
-            return res.redirect(`/notes/?success_msg=${success_msg}&error_msg=${error_msg}`)
         } catch (error) {
-            res.status(500).json({ message: 'Ocurrió un error' });
+            res.status(500).json({ message: 'error create note' });
         }
     }
 
@@ -55,115 +64,135 @@ class NoteController {
             const currentSession = req.session;
             const { id } = currentSession.user;
             const userAuthenticated = id;
-            const publication = await Publication.find({ _id: req.params.id }).lean();
+            const { success_msg, error_msg } = req.query;
 
-            const { success_msg, error_msg } = req.params;
-
-
-            res.render('components/edit-publication', { publication: publication[0], userAuthenticated, success_msg, error_msg });
+            const verify = validateDataByNote({ id : req.params.id})
+            if (!verify.success) {
+                const message = JSON.parse(verify.error);
+                const errors = message.map(err => err.message);
+                return  res.redirect(`/notes/?success_msg=&error_msg=${errors}`);
+            }
+            const publication = await Publication.find({ _id: req.params.id },{ likes:0, user_id:0, date:0, __v:0}).lean();
+            
+            return  res.render('components/edit-publication', { publication: publication[0], userAuthenticated, success_msg, error_msg });
+    
         } catch (error) {
-            res.status(500).json({ message: 'Ocurrió un error' });
+            res.status(500).json({ message: 'error edit note' });
         }
     }
-
+    
     static async publicNote(req, res) {
         try {
             const currentSession = req.session;
             const { id, name, email } = currentSession.user;
-            const userAuthenticated = id;
-            const username = name;
-            const userEmail = email;
-
-            const publication = await Publication.findById(req.params.id).lean();
-            if (!publication) {
-                return res.status(400).send('Publicacion no encontrada')
-            }
-
-            const comments = await Comment.find({ publication_id: req.params.id }).populate().lean();
-
-            const { success_msg, error_msg } = req.query;
-
-            res.render('components/note-public', { publication, userAuthenticated, comments, username, userEmail , success_msg, error_msg });
-        } catch (error) {
-            res.status(500).json({ message: 'Ocurrió un error' });
-        }
-    }
-
-    static async postEditNote(req, res) {
-        try {
-            if (!req.params.id) {
-                error_msg = 'identifier is required';
-                return res.redirect(`/notes/?success_msg=${success_msg}&error_msg=${error_msg}`);
-            }
-
-
-            const { title, description } = req.body;
-            const verify = validateUpdateNote({ title, description });
+            
+            const verify = validateDataByNote({id : req.params.id})
             if (!verify.success) {
                 const message = JSON.parse(verify.error);
                 const errors = message.map(err => err.message);
-                return res.redirect(`/notes/edit/${req.params.id}/?success_msg=${success_msg}&error_msg=${errors}`);
-            }
+            return  res.redirect(`/notes/?success_msg=&error_msg=${errors}`);
+        }           
+        
+        const publication = await Publication.findById(req.params.id,{user_id: 0, __v:0}).lean();
+        
+        
+        if (!publication) {
+            error_msg = 'publication no found!';
+            return  res.redirect(`/notes/?success_msg=&error_msg=${error_msg}`);
+            
+        }
+        
+        const comments = await Comment.find({ publication_id: req.params.id }, {_id:0,publication_id: 0,__v:0}).lean();
 
+            const { success_msg, error_msg } = req.query;
 
-            await Publication.findByIdAndUpdate(req.params.id, { title, description });
-            success_msg = 'publication updated';
-            res.redirect(`/notes/?success_msg=${success_msg}&error_msg=${error_msg}`);
+           return res.render('components/comment-note', { 
+            publication,
+             userAuthenticated: id, 
+             comments, 
+             username: name, 
+             userEmail : email, 
+             success_msg, 
+             error_msg });
         } catch (error) {
-            res.status(500).json({ message: 'error' });
+            res.status(500).json({ message: 'error show note' });
         }
     }
+    
+    static async postEditNote(req, res) {
+        try {
+            
+            const { title, description } = req.body;
+            const verify = validateDataByNote({ id : req.params.id, title, description });
+            if (!verify.success) {
+                const message = JSON.parse(verify.error);
+                const errors = message.map(err => err.message);
+                return res.redirect(`/notes/?success_msg=${success_msg}&error_msg=${errors}`);
+            }
+            
+            
+            await Publication.findByIdAndUpdate(req.params.id, { title, description });
+            success_msg = 'publication updated';
+            return  res.redirect(`/notes/?success_msg=${success_msg}&error_msg=${error_msg}`);
+        } catch (error) {
+            res.status(500).json({ message: 'error edit note' });
+            
+        }
+    }
+    
+    
 
-
-
-
+    
     static async liked(req, res) {
         try {
-            if (!req.params._id) {
-                res.redirect('/notes')
-                return;
-            }
-
-
-            const _id = req.params._id;
-            const publication = await Publication.findOne({ _id });
-
+            
+            const verify = validateDataByNote({ id : req.params.id});
+            if (!verify.success) {
+                const message = JSON.parse(verify.error);
+                const errors = message.map(err => err.message);
+                return res.redirect(`/notes/?success_msg=${success_msg}&error_msg=${errors}`);
+            }            
+            
+            const publication = await Publication.findOne({ _id: req.params.id });
+            
             if (publication) {
                 publication.likes = publication.likes + 1;
                 await publication.save();
-                res.status(200).json({ likes: publication.likes });
+               return res.status(200).json({ likes: publication.likes });
             }
             else {
-                res.status(500).json({ message: 'Ocurrió un error' });
+               return res.status(500).json({ message: 'error liked to note' });
             }
-        } catch (error) {
-            res.status(500).json({ message: 'Ocurrió un error' });
+        } catch (error) {                        
+           return res.status(500).json({ message: 'error error liked to note' });
         }
     }
-
+    
     static async commented(req, res) {
         try {
-            if (!req.params.id) {
-                error_msg = 'identifier is required';
-                return res.redirect(`/notes/?success_msg=${success_msg}&error_msg=${error_msg}`);
+            const verifyPublication = validateDataByNote({ id: req.params.id });
+            if (!verifyPublication.success) {
+                
+                const message = JSON.parse(verifyPublication.error);
+                const errors = message.map(err => err.message);
+                return res.redirect(`/notes/?success_msg=${success_msg}&error_msg=${errors}`);
             }
-
+            
             const { name, email, comment } = req.body;
-            const id = req.params.id;
-
+            
             const verify = validateComment({ name, email, comment });
             if (!verify.success) {
                 const message = JSON.parse(verify.error);
                 const errors = message.map(err => err.message);
-                return res.redirect(`/notes/public/${id}/?success_msg=${success_msg}&error_msg=${errors}`);
+                return res.redirect(`/notes/?success_msg=${success_msg}&error_msg=${errors}`);
             }
-
-
-
-            const publication = await Publication.findById(id);
-
+            
+            
+            
+            const publication = await Publication.findById(req.params.id);
+            
             if (publication) {
-
+                
                 const newComment = new Comment(
                     {
                         publication_id: publication._id,
@@ -174,32 +203,33 @@ class NoteController {
                     }
                 );
                 await newComment.save();
-
+                
                 success_msg = 'comment saved';
-                return res.redirect(`/notes/public/${publication._id}/?success_msg=${success_msg}&error_msg=${error_msg}`);
+                return res.redirect(`/notes/comment/${publication._id}/?success_msg=${success_msg}&error_msg=${error_msg}`);
             }
             else {
                 error_msg = 'publication not saved';
-                return res.redirect(`/notes/public/${publication._id}/?success_msg=${success_msg}&error_msg=${error_msg}`);
+                return res.redirect(`/notes/?success_msg=${success_msg}&error_msg=${error_msg}`);
             }
-        } catch (error) {            
-            res.status(500).json({ message: 'Ocurrió un error' });
+        } catch (error) {   
+                     
+            res.status(500).json({ message: 'error commented note' });
         }
     }
 
     static async delete(req, res) {
         try {
-
-            if (!req.params.id) {
-                error_msg = 'identifier is required';
-                res.redirect(`/notes/?success_msg=${success_msg}&error_msg=${error_msg}`)
-                return;
+            const verify = validateDataByNote({id : req.params.id})
+            if (!verify.success) {
+                const message = JSON.parse(verify.error);
+                const errors = message.map(err => err.message);
+                return  res.redirect(`/notes/?success_msg=${success_msg}&error_msg=${errors}`);
             }
-
+                  
             await Publication.findByIdAndDelete(req.params.id);
             await Comment.deleteMany({ publication_id: req.params.id });
             success_msg = 'publication deleted';
-            res.redirect(`/notes/?success_msg=${success_msg}&error_msg=${error_msg}`);
+           return res.redirect(`/notes/?success_msg=${success_msg}&error_msg=${error_msg}`);
         } catch (error) {
             res.status(500).json({ message: 'Ocurrió un error' });
         }

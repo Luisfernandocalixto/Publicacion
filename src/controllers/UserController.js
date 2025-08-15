@@ -1,7 +1,7 @@
 const { JWT_SECRET, EMAIL, NAME, BREVO_API_KEY, URL } = require("../config/config.js");
 const { typeErrors } = require("../errors/errors");
 const User = require("../models/User");
-const { UserRepository, validateUserUpdate, validateUserUpdatePassword, validateUserSignup, validateCheckEmail, validatePassword } = require("../repository/UserRespository");
+const { UserRepository, validateDataOfUser } = require("../repository/UserRespository");
 const Brevo = require('@getbrevo/brevo');
 const bcrypt = require('bcryptjs');
 const apiInstance = new Brevo.TransactionalEmailsApi();
@@ -45,6 +45,7 @@ class UserController {
             if (error.message === typeErrors.PASSWORD) return res.status(401).json(typeErrors.PASSWORD);
             if (error.message.includes('password') || error.message.includes('email')) return res.status(401).json(error.message);
             return res.status(401).send("Error start session");
+            
 
         }
     }
@@ -54,15 +55,16 @@ class UserController {
             const currentSession = req.session;
             const { id, name, email } = currentSession.user;
 
-            const userAuthenticated = id;
-            const userName = name;
-            const userEmail = email;
-
             const { success_msg, error_msg } = req.query;
 
-            res.render('components/reset.hbs', { userAuthenticated, userName, userEmail, success_msg, error_msg });
+            res.render('components/reset.hbs', { 
+                 userAuthenticated: id,
+                 userName: name,
+                 userEmail: email,
+                 success_msg,
+                 error_msg });
         } catch (error) {
-            res.status(500).json({ error: 'error' });
+            res.status(500).json({ error: 'error show settings' });
 
         }
     }
@@ -74,7 +76,7 @@ class UserController {
             const currentSession = req.session;
             const { id } = currentSession.user;
 
-            const verify = validateUserUpdatePassword({ password });
+            const verify = validateDataOfUser({ password });
             if (!verify.success) {
                 const message = JSON.parse(verify.error);
                 const errors = message.map(err => err.message);
@@ -100,9 +102,7 @@ class UserController {
 
             }
         } catch (error) {
-            console.error(error);
-
-            res.status(500).json({ error: 'error' });
+            res.status(500).json({ error: 'error updating profile ' });
 
         }
     }
@@ -116,7 +116,7 @@ class UserController {
             const { id } = currentSession.user;
 
 
-            const verify = validateUserUpdate({ name, email });
+            const verify = validateDataOfUser({ name, email });
             if (!verify.success) {
                 const message = JSON.parse(verify.error);
                 const errors = message.map(err => err.message);
@@ -139,9 +139,7 @@ class UserController {
             }
 
         } catch (error) {
-            console.error(error);
-
-            res.status(500).json({ error: 'error' });
+            res.status(500).json({ error: 'error setting profile' });
 
         }
     }
@@ -153,7 +151,7 @@ class UserController {
 
             res.render('components/forgotEmail.hbs', { success_msg, error_msg });
         } catch (error) {
-            res.status(500).json({ error: 'error' });
+            res.status(500).json({ error: 'error view forgot by email' });
 
         }
     }
@@ -161,7 +159,7 @@ class UserController {
         try {
             const { email } = req.body;
 
-            const verify = validateCheckEmail({ email });
+            const verify = validateDataOfUser({ email });
             if (!verify.success) {
                 const message = JSON.parse(verify.error);
                 const errors = message.map(err => err.message);
@@ -183,38 +181,40 @@ class UserController {
                     sender: { email: EMAIL, name: NAME },
                     subject: 'Recuperación de cuenta',
                     htmlContent: `<strong>Hola, aquí tienes la información solicitada:</strong>
-                    <a href="${URL}/resetPassword/${token}">Restablecer contraseña</a>
+                    <a href="${URL}/users/resetPassword/${token}">Restablecer contraseña</a>
                     `
                 };
                 apiInstance.sendTransacEmail(sendSmtpEmail).then(
                     function (data) {
-                        console.log('Correo enviado exitosamente. Respuesta:');
+                        console.log('Email send successfully. Response:');
                     },
                     function (error) {
 
-                        console.error('Error al enviar el correo:');
+                        console.error('error send email:');
                     }
                 );
 
-                success_msg = 'Se ha enviado un correo electrónico con un enlace para restablecer la contraseña!';
+                success_msg = 'An email with a link to reset your password has been sent!';
                 return res.redirect(`/users/forgotEmail/?success_msg=${success_msg}&error_msg=${error_msg}`);
             }
 
         } catch (error) {
-            res.status(500).json({ message: 'Ocurrió un error' });
+            res.status(500).json({ message: 'error check email' });
         }
     }
 
     static async getResetPassword(req, res) {
         try {
             const { token } = req.params;
-            if (!token || token.trim() === '') {
-                error_msg = 'Token inválid!';
-                return res.redirect(`/users/forgotEmail/?success_msg=${success_msg}&error_msg=${error_msg}`);
+            const verify = validateDataOfUser({ token })
+            if (!verify.success) {
+                const message = JSON.parse(verify.error);
+                const errors = message.map(err => err.message);
+                return res.redirect(`/users/forgotEmail/?success_msg=${success_msg}&error_msg=${errors}`);
             }
-            res.render('components/resetPassword.hbs', { token });
+           return res.render('components/resetPassword.hbs', { token });
         } catch (error) {
-            res.status(500).json({ message: 'Error al restablecer contraseña' })
+            res.status(500).json({ message: 'error reset password' })
         }
     }
 
@@ -224,8 +224,7 @@ class UserController {
             const { password } = req.body;
             const { token } = req.params;
 
-            if (!token || token.trim() === '') return res.status(500).json({ message: 'Token invalid!' });
-            const verify = validatePassword({ password });
+            const verify = validateDataOfUser({ password, token });
             if (!verify.success) {
                 const message = JSON.parse(verify.error);
                 const errors = message.map(err => err.message);
@@ -238,7 +237,7 @@ class UserController {
             const userId = decoded.userId;
             const verifyUser = await User.findOne({ email: userId });
             if (!verifyUser) {
-                error_msg =  'user not found!';
+                error_msg = 'user not found!';
                 return res.redirect(`/users/signin/?success_msg=${success_msg}&error_msg=${error_msg}`);
             }
             else {
@@ -256,10 +255,11 @@ class UserController {
 
     static async getSignup(req, res) {
         try {
-            res.render('components/signup');
+            const { success_msg, error_msg } = req.query
+           return res.render('components/signup', { success_msg, error_msg });
 
         } catch (error) {
-            res.status(500).json({ error: 'Ocurrió un error' });
+            res.status(500).json({ error: 'error show view signup' });
 
         }
     }
@@ -268,27 +268,27 @@ class UserController {
         try {
             const { name, email, password, confirm_password } = req.body;
 
-            const verify = validateUserSignup({ name, email, password });
+            const verify = validateDataOfUser({ name, email, password });
             if (!verify.success) {
                 const message = JSON.parse(verify.error);
                 const errors = message.map(err => err.message);
-                return res.redirect(`/users/signup/?success_msg=${success_msg}&error_msg=${errors}`);
+                return res.redirect(`/users/signup/?success_msg=&error_msg=${errors}`);
             }
 
             if (password !== confirm_password) {
                 error_msg = 'passwords do not match!';
-                return res.redirect(`/users/signup/?success_msg=${success_msg}&error_msg=${error_msg}`);
+                return res.redirect(`/users/signup/?success_msg=&error_msg=${error_msg}`);
             }
 
             if (!regex.test(password)) {
                 error_msg = 'Password should have length of 8 character minimum, should have letters, numbers and symbol!.';
-                return res.redirect(`/users/signup/?success_msg=${success_msg}&error_msg=${error_msg}`);
+                return res.redirect(`/users/signup/?success_msg=&error_msg=${error_msg}`);
             }
 
             const emailUser = await User.findOne({ email: email });
             if (emailUser) {
                 error_msg = 'Email already exists!';
-                return res.redirect(`/users/signup/?success_msg=${success_msg}&error_msg=${error_msg}`);
+                return res.redirect(`/users/signup/?success_msg=&error_msg=${error_msg}`);
             }
 
             const newUser = new User({ name, email, password });
@@ -298,7 +298,7 @@ class UserController {
             return res.redirect(`/users/signin/?success_msg=${success_msg}&error_msg=${error_msg}`);
 
         } catch (error) {
-            res.status(500).json({ error: 'Ocurrió un error' });
+            res.status(500).json({ error: 'error signup account' });
         }
     }
 
