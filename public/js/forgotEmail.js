@@ -39,6 +39,8 @@ document.addEventListener('DOMContentLoaded', function () {
     
             }
             else {
+                        Swal.fire({ icon: "error", title: "Oops...", text: `${renameMessage(data)}`, confirmButtonColor: "#024751" });
+              
             }
     
           })

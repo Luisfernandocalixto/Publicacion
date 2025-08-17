@@ -215,7 +215,7 @@ class UserController {
                        error_msg = 'error send email';
                        return res.status(500).json(error_msg);
                      });
-
+                     
             }
 
         } catch (error) {
