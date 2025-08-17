@@ -176,6 +176,27 @@ class UserController {
 
                 const token = jwt.sign({ userId: email }, JWT_SECRET, { expiresIn: '1h' });
 
+                    //  const response =   await fetch(`http://localhost:5000/forgotCheckEmail`, {
+                    //      method: 'POST',
+                    //      headers: {
+                    //        'Content-Type': 'application/json',
+                    //      },
+                    //      body : JSON.stringify({ emailReceived: email, name: email , token})
+                    // });
+                    // if (response.ok) {
+                    //             console.log('Email send successfully. Response:');
+                    //             success_msg = 'An email with a link to reset your password has been sent!';
+                    //             return res.redirect(`/users/forgotEmail/?success_msg=${success_msg}&error_msg=${error_msg}`);
+                        
+                    // }
+                    // else{
+                    //             console.error('error send email:', response);
+                    //             error_msg = 'error send email!';
+                    //             return res.redirect(`/users/forgotEmail/?success_msg=${success_msg}&error_msg=${error_msg}`);
+
+                    // }
+                    
+
                 const sendSmtpEmail = {
                     to: [{ email: email, name: email }],
                     sender: { email: EMAIL, name: NAME },
@@ -191,7 +212,7 @@ class UserController {
                         return res.redirect(`/users/forgotEmail/?success_msg=${success_msg}&error_msg=${error_msg}`);
                     },
                     function (error) {
-                        console.error('error send email:',error);
+                        console.error('error send email:',error.message);
                         error_msg = 'error send email!';
                         return res.redirect(`/users/forgotEmail/?success_msg=${success_msg}&error_msg=${error_msg}`);
                         
@@ -201,6 +222,7 @@ class UserController {
             }
 
         } catch (error) {
+            console.log(error.message, 'catch');
             res.status(500).json({ message: 'error check email' });
         }
     }
