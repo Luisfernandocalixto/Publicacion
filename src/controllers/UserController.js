@@ -205,24 +205,24 @@ class UserController {
                     <a href="${URL}/users/resetPassword/${token}">Restablecer contraseña</a>
                     `
                 };
+
                 apiInstance.sendTransacEmail(sendSmtpEmail).then(
                     function (data) {
                         console.log('Email send successfully. Response:');
-                        success_msg = 'An email with a link to reset your password has been sent!';
-                        return res.redirect(`/users/forgotEmail/?success_msg=${success_msg}&error_msg=${error_msg}`);
                     },
                     function (error) {
-                        console.error('error send email:',error.message);
-                        error_msg = 'error send email!';
-                        return res.redirect(`/users/forgotEmail/?success_msg=${success_msg}&error_msg=${error_msg}`);
+                        console.error('error send email:',error);
                         
                     }
                 );
+                
+                success_msg = 'An email with a link to reset your password has been sent!';
+                return res.redirect(`/users/forgotEmail/?success_msg=${success_msg}&error_msg=${error_msg}`);
 
             }
 
         } catch (error) {
-            console.log(error.message, 'catch');
+            console.log(error, 'catch');
             res.status(500).json({ message: 'error check email' });
         }
     }
