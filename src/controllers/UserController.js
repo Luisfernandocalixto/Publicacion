@@ -32,7 +32,7 @@ class UserController {
 
             const user = await UserRepository.login({ email, password })
             const token = jwt.sign({ id: user.id, email: user.email, name: user.name }, JWT_SECRET, { expiresIn: '1h' })
-
+            
 
             res.cookie('access_token', token, {
                 httpOnly: true, // la cookie solo se puede acceder en el  servidor

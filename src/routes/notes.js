@@ -6,6 +6,11 @@ const { NoteController } = require('../controllers/NoteController.js');
 
 
 router.get('/notes', isAuthenticated, NoteController.notes);
+
+router.get('/notes/publication', isAuthenticated, NoteController.notesOfProfile);
+
+router.get('/notes/publication/all', isAuthenticated, NoteController.notesAllPublication);
+
 router.get('/notes/:id', isAuthenticated, NoteController.editNote);
 
 router.post('/notes', isAuthenticated, NoteController.newNote);

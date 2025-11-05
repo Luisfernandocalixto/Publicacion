@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="/css/allnotes.css" />
 
 <section class="container">
-  <header style="">
+  <header >
     <div  class="mt">
       <h3  class="text-gray">
         <i class="fa-solid fa-comment"></i>
@@ -74,39 +74,8 @@
       ></i>
       Mis publicaciones</h3>
 
-    <div>
-      <div>
-        {{#if publications}}
-          {{#each publications}}
-            <a
-              href="/notes/{{this._id}}"
-              class="decoration-none text-white"
-            >
-              <div
-                class="publications"
-              >
-              {{>wave}}
-
-              <div class="contentDate">
-                  <span>
-                {{showDateByProfileUser date}}
-                  </span>
-              </div>
-
-                <p style="">{{this.title}}</p>
-              </div>
-            </a>
-          {{/each}}
-        {{else}}
-        <div class="text-center text-azure">
-          No hay publicaciones
-        </div>
-        <br>
-        <br>
-        <br>
-        {{/if}}
-      </div>
-          </div>
+      <div align="center" class="pagination"></div>
+    <div class="contentMyPublications"></div>
 
 
   </aside>
@@ -127,26 +96,9 @@
         <i class="fa-solid fa-comment"></i>
         Publicaciones
       </h3>
-      {{#each publicationsAll}}
 
-        <a
-          href="/notes/comment/{{this._id}}"
-          class="decoration-none text-white"
-        >
-          <article class="publications">
-            {{>wave}}
-              <div class="contentDate">
-                  <span>
-                {{showDateByProfileUser date}}
-                  </span>
-                  <span>
-                   likes {{likes}}
-                  </span>
-              </div>
-            <p>{{title}}</p>
-          </article>
-        </a>
-      {{/each}}
+      <div align="center" class="paginationGeneral"></div>
+      <div align="center" class="contentGeneralPublications"></div>
     </section>
 
   </main>

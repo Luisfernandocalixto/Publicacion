@@ -37,9 +37,9 @@
 
     </div>
   </main>
-  <aside style="margin-top: 70px;">
+  <aside class="mt-70">
     <div class="asideReaction">
-      <button class="is-fav is-big copy" aria-label="fav" id="btn-like" data-id="{{publication._id}}">
+      <button class="is-fav is-big copy" aria-label="fav" id="btn-like" data-id="{{publication.id}}">
         <span data-text-end="Like❤!" data-text-initial="" class="tooltip"></span>
 
       </button>
@@ -61,10 +61,10 @@
     </div>
   </aside>
 
-  <article style="" class="article-form">
+  <article  class="article-form">
     <br>
     <br>
-    <form action="/notes/comment/{{publication._id}}"  method="post">
+    <form action="/notes/comment/{{publication.id}}"  method="post">
       <div  class="groupInput" hidden>
         <input type="text" class="form-control" name="name" placeholder="Name" value="{{username}}"
         class="formInput" required />
@@ -107,7 +107,7 @@
         <img src="http://gravatar.com/avatar/{{this.gravatar}}?d=monsterid&s=45" class="border-50" alt="">
           </div>
           <div>
-          <time datetime=""> {{showDateByProfileUser timestamp}}</time>
+          <time datetime=""> {{isDate}},  {{date}}</time>
 
           </div>
 

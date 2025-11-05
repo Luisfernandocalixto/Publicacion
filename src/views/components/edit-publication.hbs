@@ -10,11 +10,11 @@
   </div>
   <br />
   <div>
-    <form  method="post" id="formDeletePub" data-sett="{{publication._id}}"
+    <form  method="post" id="formDeletePub" data-sett="{{publication.id}}"
     class="formOptions"
       >
-      <div style="" class="mb-5">
-        <a style=""
+      <div  class="mb-5">
+        <a 
           href="/notes"
           class="buttonBack"
           >
@@ -37,7 +37,7 @@
     <form  class="formEdit">
       <div class="form-group p-2" hidden>
         <input type="text" id="publication" name="isPublication" class="inputEdit"
-          placeholder="publication" value="{{publication._id}}" required readonly />
+          placeholder="publication" value="{{publication.id}}" required readonly />
       </div>
       <div class="form-group p-2">
         <input type="text" id="title" name="title" minlength="10" maxlength="500" class="inputEdit"

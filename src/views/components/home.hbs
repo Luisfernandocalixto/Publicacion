@@ -12,25 +12,8 @@
       <i class="fa-solid fa-comment"></i>
       Publicaciones
     </h3>
-    <div class="flex-center w-100">
-
-    {{#each publicationsAll}}
-
-    <div class=""
-     >
-
-      <a href="/notes/comment/{{this._id}}"
-      class="link-publication-home"
-        >
-        <div class="publications w-100">
-          {{>wave}}
-          <p>{{title}}</p>
-        </div>
-      </a>
-    </div>
-    {{else}}
-    <div  class="text-white text-center">Aún no hay publicaciones</div>
-    {{/each}}
-    </div>
+    <div class="pagination flex-center"></div>
+    <div class="flex-center contentGeneralPublications"></div>
   </main>
 </section>
+<script type="module" src="/js/home.js"></script>

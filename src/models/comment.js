@@ -6,10 +6,8 @@ const CommentSchema = new Schema({
     name: { type: String },
     gravatar: { type: String },
     comment: { type: String },
-    timestamp: { type: Date, default: Date.now() }
+}, { timestamps: true });
 
-}
-);
 
 module.exports = model('Comment', CommentSchema);
 
